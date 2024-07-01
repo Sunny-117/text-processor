@@ -66,3 +66,52 @@ pub fn combine_srt_files_to_markdown(output_dir: &Path) -> io::Result<()> {
 
     Ok(())
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::fs::{self, File};
+    use std::io::Write;
+    use std::path::PathBuf;
+
+    fn setup_test_env() -> (PathBuf, PathBuf) {
+        let input_dir = PathBuf::from(".test/input");
+        let output_dir = PathBuf::from(".test/output");
+        fs::create_dir_all(&input_dir).unwrap();
+        fs::create_dir_all(&output_dir).unwrap();
+
+        // Create some test .srt files
+        for i in 1..=3 {
+            let file_path = input_dir.join(format!("file_{}.srt", i));
+            let mut file = File::create(file_path).unwrap();
+            writeln!(
+                file,
+                "1\n00:00:00,000 --> 00:00:02,000\nSubtitle text {}",
+                i
+            )
+            .unwrap();
+        }
+
+        (input_dir, output_dir)
+    }
+
+    fn cleanup_test_env(input_dir: &Path, output_dir: &Path) {
+        fs::remove_dir_all(output_dir).unwrap();
+    }
+
+    #[test]
+    fn test_generate_srt_files() {
+        let (input_dir, output_dir) = setup_test_env();
+
+        let result = generate_srt_files(&input_dir, &output_dir);
+        assert!(result.is_ok());
+
+        // Check that the output files are created
+        for i in 1..=3 {
+            let output_file_path = output_dir.join(format!("file_{}.srt", i));
+            assert!(output_file_path.exists());
+        }
+
+        cleanup_test_env(&input_dir, &output_dir);
+    }
+}
