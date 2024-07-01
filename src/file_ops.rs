@@ -1,10 +1,9 @@
 use std::fs::{self, File};
 use std::io::{self, Read, Write};
+use std::path::Path;
 
-pub fn generate_srt_files() -> io::Result<()> {
-    let c = std::env::current_dir()?;
-    let current_dir = c.join("input");
-    let srt_files: Vec<_> = fs::read_dir(&current_dir)?
+pub fn generate_srt_files(input_dir: &Path, output_dir: &Path) -> io::Result<()> {
+    let srt_files: Vec<_> = fs::read_dir(input_dir)?
         .filter_map(|entry| {
             entry.ok().and_then(|e| {
                 let path = e.path();
@@ -17,8 +16,7 @@ pub fn generate_srt_files() -> io::Result<()> {
         })
         .collect();
 
-    let output_dir = c.join("output");
-    fs::create_dir_all(&output_dir)?;
+    fs::create_dir_all(output_dir)?;
 
     for (index, srt_file) in srt_files.iter().enumerate() {
         let mut contents = String::new();
@@ -34,9 +32,7 @@ pub fn generate_srt_files() -> io::Result<()> {
     Ok(())
 }
 
-pub fn combine_srt_files_to_markdown() -> io::Result<()> {
-    let c = std::env::current_dir()?;
-    let output_dir = c.join("output");
+pub fn combine_srt_files_to_markdown(output_dir: &Path) -> io::Result<()> {
     let combined_file_path = output_dir.join("combined.md");
 
     let mut combined_file = File::create(&combined_file_path)?;
