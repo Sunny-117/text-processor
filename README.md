@@ -9,7 +9,6 @@ TextProcessor is a Rust project designed to process various text files. The proj
 - Command-line Interface: Allows users to specify input and output directories via CLI arguments, with default values if not specified.
 - Future Expansion: Designed with extensibility in mind to support various other text file formats in the future.
 
-
 ## Getting Started
 
 ### Prerequisites
@@ -39,6 +38,13 @@ cargo run
 cargo run -- --input custom_input_dir --output custom_output_dir
 ```
 
+### Test CLI
+
+```shell
+cargo install --path .
+tp
+tp --input custom_input_dir --output custom_output_dir
+```
 
 ## Directory Structure
 

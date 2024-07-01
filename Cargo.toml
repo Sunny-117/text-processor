@@ -1,5 +1,5 @@
 [package]
-name = "srt_processor"
+name = "tp"
 version = "0.1.0"
 edition = "2021"
 
@@ -7,3 +7,6 @@ edition = "2021"
 clap = { version = "4.0", features = ["derive"] }
 colored = "2.0"
 thiserror = "1.0"
+
+[[bin]]
+name = "tp"

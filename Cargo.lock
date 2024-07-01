@@ -144,15 +144,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "srt_processor"
-version = "0.1.0"
-dependencies = [
- "clap",
- "colored",
- "thiserror",
-]
-
-[[package]]
 name = "strsim"
 version = "0.11.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -187,6 +178,15 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
+]
+
+[[package]]
+name = "tp"
+version = "0.1.0"
+dependencies = [
+ "clap",
+ "colored",
+ "thiserror",
 ]
 
 [[package]]
