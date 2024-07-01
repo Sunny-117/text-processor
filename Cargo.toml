@@ -2,6 +2,7 @@
 name = "tp"
 version = "0.1.0"
 edition = "2021"
+description = "A flexible and efficient solution for handling and transforming text files."
 
 [dependencies]
 clap = { version = "4.0", features = ["derive"] }
@@ -10,3 +11,16 @@ thiserror = "1.0"
 
 [[bin]]
 name = "tp"
+
+[package.metadata.bundle]
+name = "tp"
+identifier = "com.sunny-117.tp"
+version = "0.1.0"
+short_description = "A flexible and efficient solution for handling and transforming text files."
+long_description = """TextProcessor is a Rust project designed to process various text files. The project aims to provide a flexible and efficient solution for handling and transforming text files.."""
+
+[package.metadata.bundle.osx]
+frameworks = ["Cocoa", "Carbon"]
+
+# [package.metadata.bundle.resources]
+# Specify any additional resources to include in the bundle
