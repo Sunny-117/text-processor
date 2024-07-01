@@ -1,3 +1,4 @@
+use colored::*;
 use std::fs::{self, File};
 use std::io::{self, Read, Write};
 use std::path::Path;
@@ -27,7 +28,10 @@ pub fn generate_srt_files(input_dir: &Path, output_dir: &Path) -> io::Result<()>
         output_file.write_all(contents.as_bytes())?;
     }
 
-    println!("All .srt files have been processed and saved to the 'output' directory.");
+    println!(
+        "{}",
+        "All .srt files have been processed and saved to the 'output' directory.".green()
+    );
 
     Ok(())
 }
@@ -43,7 +47,10 @@ pub fn combine_srt_files_to_markdown(output_dir: &Path) -> io::Result<()> {
             let path = entry.path();
 
             if path.is_file() {
-                let file_name = path.file_name().and_then(|n| n.to_str()).unwrap_or("Unknown");
+                let file_name = path
+                    .file_name()
+                    .and_then(|n| n.to_str())
+                    .unwrap_or("Unknown");
                 let mut contents = String::new();
                 File::open(&path)?.read_to_string(&mut contents)?;
                 writeln!(combined_file, "# {}\n", file_name)?;
@@ -52,7 +59,10 @@ pub fn combine_srt_files_to_markdown(output_dir: &Path) -> io::Result<()> {
         }
     }
 
-    println!("All files have been combined into 'combined.md'.");
+    println!(
+        "{}",
+        "All files have been combined into 'combined.md'.".green()
+    );
 
     Ok(())
 }

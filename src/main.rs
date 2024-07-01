@@ -1,7 +1,8 @@
 mod file_ops;
 
 use clap::Parser;
-use file_ops::{generate_srt_files, combine_srt_files_to_markdown};
+use colored::*;
+use file_ops::{combine_srt_files_to_markdown, generate_srt_files};
 use std::path::PathBuf;
 
 /// A simple program to process and combine .srt files
@@ -21,5 +22,6 @@ fn main() -> std::io::Result<()> {
     let args = Cli::parse();
     generate_srt_files(&args.input, &args.output)?;
     combine_srt_files_to_markdown(&args.output)?;
+    println!("{}", "✨✨ All operations completed successfully.".green());
     Ok(())
 }
