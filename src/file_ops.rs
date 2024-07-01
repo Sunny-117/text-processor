@@ -96,6 +96,7 @@ mod tests {
     }
 
     fn cleanup_test_env(input_dir: &Path, output_dir: &Path) {
+        fs::remove_dir_all(input_dir).unwrap();
         fs::remove_dir_all(output_dir).unwrap();
     }
 
@@ -110,6 +111,34 @@ mod tests {
         for i in 1..=3 {
             let output_file_path = output_dir.join(format!("file_{}.srt", i));
             assert!(output_file_path.exists());
+        }
+
+        cleanup_test_env(&input_dir, &output_dir);
+    }
+
+    #[test]
+    fn test_combine_srt_files_to_markdown() {
+        test_generate_srt_files();
+        let (input_dir, output_dir) = setup_test_env();
+        generate_srt_files(&input_dir, &output_dir).unwrap();
+
+        let result = combine_srt_files_to_markdown(&output_dir);
+        assert!(result.is_ok());
+
+        // Check that the combined markdown file is created
+        let combined_file_path = output_dir.join("combined.md");
+        assert!(combined_file_path.exists());
+
+        // Verify the contents of the combined file
+        let mut combined_contents = String::new();
+        File::open(combined_file_path)
+            .unwrap()
+            .read_to_string(&mut combined_contents)
+            .unwrap();
+
+        for i in 1..=3 {
+            assert!(combined_contents.contains(&format!("# file_{}.srt\n", i)));
+            assert!(combined_contents.contains(&format!("Subtitle text {}", i)));
         }
 
         cleanup_test_env(&input_dir, &output_dir);
