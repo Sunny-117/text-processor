@@ -61,6 +61,12 @@ text-processor/
 └── output/  (generated after running the program)
 ```
 
+## Build
+
+```shell
+cargo bundle --release
+```
+
 ## Contributing
 
 Contributions are welcome! Please fork the repository and open a pull request with your changes. Ensure your code adheres to the project's coding standards and includes appropriate tests.
