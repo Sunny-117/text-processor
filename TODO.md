@@ -7,3 +7,5 @@ curl -L -o tp.app.zip https://github.com/Sunny-117/text-processor/releases/downl
 ```
 
 ## cli help
+
+## custom text format
