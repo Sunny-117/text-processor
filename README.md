@@ -1,6 +1,6 @@
 # text-processor [WIP]
 
-TextProcessor is a Rust project designed to process various text files. The project aims to provide a flexible and efficient solution for handling and transforming text files.
+Rust-based text processor provides flexible and efficient processing and conversion of text
 
 ## Features
 
